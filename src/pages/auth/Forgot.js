@@ -16,7 +16,7 @@ const Forgot = () => {
           <h2>Forgot Password</h2>
           <form>
             <input type="email" placeholder="Email" required name="email"/>
-            <button type="submit" className='--btn --btn-primary --btn-block'>Reset Password</button>
+            <button type="submit" className='--btn --btn-primary --btn-block'>Send Reset Email</button>
           <div className={styles.links}>
             <p>
             <Link to="/">Home</Link>
