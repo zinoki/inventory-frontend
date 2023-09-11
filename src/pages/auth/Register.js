@@ -22,6 +22,8 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState(initialState)
   const { name, email, password, password2 } = formData
+
+
   const handleInputChange = (e) => {
     const {name, value} = e.target
     setFormData({...formData, [name]: value})
@@ -55,7 +57,7 @@ const Register = () => {
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
-      console.log(error.message)
+
     }
   }
 
