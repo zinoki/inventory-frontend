@@ -6,6 +6,7 @@ import { AiOutlineEye } from 'react-icons/ai'
 import Search from '../../search/Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { FILTER_PRODUCTS, selectFilteredProducts } from '../../../redux/features/product/filterSlice'
+import ReactPaginate from 'react-paginate'
 
 
 const ProductList = ({products, isLoading}) => {
@@ -20,6 +21,25 @@ const ProductList = ({products, isLoading}) => {
     }
     return text
   }
+
+  // Begin Pagination
+  const [currentItems, setCurrentItems] = useState([])
+  const [pageCount, setPageCount] = useState(0)
+  const [itemOffset, setItemOffset] = useState(0)
+  const itemsPerPage = 2
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage
+
+    setCurrentItems(filteredProducts.slice(itemOffset, endOffset))
+    setPageCount(Math.ceil(filteredProducts.length / itemsPerPage))
+  }, [itemOffset, itemsPerPage, filteredProducts])
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) % filteredProducts.length;
+    setItemOffset(newOffset)
+  }
+  // End Pagination
 
   useEffect(() => {
     dispatch(FILTER_PRODUCTS({products, search}))
@@ -54,7 +74,7 @@ const ProductList = ({products, isLoading}) => {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.map((product, index) => {
+              {currentItems.map((product, index) => {
                 const {_id, name, category, price, quantity} = product
                 return (
                   <tr key={_id}>
@@ -83,6 +103,20 @@ const ProductList = ({products, isLoading}) => {
           </table>
         )}
       </div>
+      <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="Prev"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="activePage" />
+
     </div>
 
     </div>
