@@ -209,6 +209,8 @@ export const {CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY} = productSlice.a
 
 export const selectIsLoading = (state) => state.product.isLoading
 
+export const selectProduct = (state) => state.product.product
+
 export const selectTotalStoreValue = (state) => state.product.totalStoreValue
 
 export const selectOutOfStock = (state) => state.product.outOfStock
